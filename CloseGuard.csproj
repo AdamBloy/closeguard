@@ -1,0 +1,48 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    
+
+    <!-- WinExe = a Windows GUI program with no console window popping up -->
+    <OutputType>WinExe</OutputType>
+
+    <!-- .NET 8, Windows-only (we call Windows APIs and use WinForms) -->
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <UseWindowsForms>true</UseWindowsForms>
+
+    <!-- Nullable: the compiler warns you about possible null values (like undefined bugs in JS) -->
+    <Nullable>enable</Nullable>
+
+    <!-- ImplicitUsings: automatically imports common namespaces so you write fewer "using" lines -->
+    <ImplicitUsings>enable</ImplicitUsings>
+
+    <!-- Makes mouse coordinates correct on high-DPI / multi-monitor setups.
+         Without this, the "is this the close button?" test can miss on scaled screens. -->
+    <ApplicationHighDpiMode>PerMonitorV2</ApplicationHighDpiMode>
+
+    <!-- The name of the output exe: CloseGuard.exe -->
+    <AssemblyName>CloseGuard</AssemblyName>
+
+    <!-- The icon embedded into the exe (what you see in Explorer). Must exist in the project folder. -->
+    <ApplicationIcon>app.ico</ApplicationIcon>
+
+    <!-- Version info shown in the exe's Properties > Details tab.
+         Real metadata makes the file look less suspicious to antivirus. Edit these. -->
+    <Version>1.0.0</Version>
+    <Company>AJB Media</Company>
+    <Product>CloseGuard</Product>
+    <Description>Asks for confirmation before a browser window is closed with the mouse.</Description>
+    <Copyright>Copyright © 2026 AJB Media</Copyright>
+
+    <!-- Only ship English resource files (keeps the publish folder smaller) -->
+    <SatelliteResourceLanguages>en</SatelliteResourceLanguages>
+  </PropertyGroup>
+   <ItemGroup>
+    <!-- Copy logo.png beside the exe so the dialog can load it at runtime.
+         The installer's [Files] line copies the whole publish folder, so it ships automatically. -->
+    <None Update="logo.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+</Project>
