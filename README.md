@@ -2,7 +2,6 @@
 
 A small Windows tray app that asks **"Close this window?"** before a Chrome window is closed with the mouse, so you never lose a window full of tabs to a misclick.
 
-![Close Guard dialog](D:\Development (Production)\Apps\Chrome Closer Blocker\CloseGuard\img\screenshot.png)
 
 # Close Guard
 
