@@ -47,34 +47,41 @@ sealed class TrayApp : ApplicationContext
         _hook.CloseRequested += hwnd => _ui.BeginInvoke(() => Ask(hwnd));
     }
 
-    // Show the confirmation dialog and act on the answer.
-    void Ask(IntPtr hwnd)
+    // "async" lets us wait for the background check without freezing the UI.
+    async void Ask(IntPtr hwnd)
     {
-        if (_dialogOpen) return; // already showing one
+        if (_dialogOpen) return; // already handling one
         _dialogOpen = true;
 
         try
         {
-            using var dialog = new ConfirmForm();
+            // Run the incognito check on a background thread (UI Automation can take a moment
+            // and works best off the UI thread). Give up after 1.5 seconds.
+            var check = Task.Run(() => IncognitoDetector.IsIncognito(hwnd));
+            bool finished = await Task.WhenAny(check, Task.Delay(1500)) == check;
+            bool incognito = finished && check.Result; // timed out = treat as a normal window
 
-            // ShowDialog() blocks until the user clicks a button, then returns which one.
-            // We only close Chrome if:
-            //   - the user chose "Close window", AND
-            //   - the window still exists, AND
-            //   - the handle still belongs to a guarded program (handles can be reused).
+            // The window may have vanished while we checked, so validate the handle again.
+            if (!IsWindow(hwnd) || !CloseGuardHook.IsGuardedProcess(hwnd)) return;
+
+            if (incognito)
+            {
+                // Incognito: no dialog, just carry out the close the user asked for.
+                PostMessage(hwnd, WM_CLOSE, IntPtr.Zero, IntPtr.Zero);
+                return;
+            }
+
+            using var dialog = new ConfirmForm();
             if (dialog.ShowDialog() == DialogResult.Yes
                 && IsWindow(hwnd)
                 && CloseGuardHook.IsGuardedProcess(hwnd))
             {
-                // WM_CLOSE = polite request to close, same as Chrome's own X button.
-                // Chrome can still show its own "close all tabs?" prompts.
                 PostMessage(hwnd, WM_CLOSE, IntPtr.Zero, IntPtr.Zero);
             }
         }
         finally
         {
-            // "finally" always runs, even after errors, so we never get stuck "open".
-            _dialogOpen = false;
+            _dialogOpen = false; // always reset, even after an early return or error
         }
     }
 

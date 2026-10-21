@@ -11,6 +11,12 @@ and this project follows [Semantic Versioning](https://semver.org/).
 
 - Nothing yet.
 
+## [1.0.1] - 2026-10-21
+
+### Fixed
+
+- Incognito windows are now detected reliably after a page has loaded. Previously, detection only worked while the window showed the "New Incognito tab" start page.
+
 ## [1.0.0] - 2026-10-21
 
 First public release.
@@ -36,5 +42,6 @@ First public release.
 - Incognito detection relies on window titles and may vary by Chrome version and language.
 - The installer is not code-signed, so Windows SmartScreen may show a warning on first run.
 
-[Unreleased]: https://github.com/AdamBloy/closeguard/compare/v1.0.0...HEAD
+[Unreleased]: https://github.com/AdamBloy/closeguard/compare/v1.0.1...HEAD
+[1.0.1]: https://github.com/AdamBloy/closeguard/compare/v1.0.0...v1.0.1
 [1.0.0]: https://github.com/AdamBloy/closeguard/releases/tag/v1.0.0

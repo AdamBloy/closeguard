@@ -28,7 +28,7 @@
 
     <!-- Version info shown in the exe's Properties > Details tab.
          Real metadata makes the file look less suspicious to antivirus. Edit these. -->
-    <Version>1.0.0</Version>
+    <Version>1.0.1</Version>
     <Company>AJB Media</Company>
     <Product>CloseGuard</Product>
     <Description>Asks for confirmation before a browser window is closed with the mouse.</Description>
@@ -36,6 +36,10 @@
 
     <!-- Only ship English resource files (keeps the publish folder smaller) -->
     <SatelliteResourceLanguages>en</SatelliteResourceLanguages>
+
+    <!-- Gives us System.Windows.Automation (UI Automation) for reading Chrome's interface.
+     It ships with the .NET Desktop Runtime, which the installer already provides. -->
+<UseWPF>true</UseWPF>
   </PropertyGroup>
    <ItemGroup>
     <!-- Copy logo.png beside the exe so the dialog can load it at runtime.
@@ -43,6 +47,12 @@
     <None Update="logo.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+  </ItemGroup>
+
+    <ItemGroup>
+    <!-- UseWPF removes System.IO from the automatic imports, so we add it back.
+         This makes File, Path, Directory etc. work in every file again. -->
+    <Using Include="System.IO" />
   </ItemGroup>
 
 </Project>

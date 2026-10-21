@@ -7,7 +7,7 @@
 ; Unique ID. Keep the double opening brace "{{", it's how Inno escapes a single brace.
 AppId={{94de1e1f-b9bf-45e8-bda0-e14406026db3}
 AppName=Close Guard
-AppVersion=1.0.0
+AppVersion=1.0.1
 AppPublisher=AJB Media
 ; Optional: a website shown in Add/Remove Programs
 ; AppPublisherURL=https://github.com/AdamBloy
