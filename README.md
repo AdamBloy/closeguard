@@ -4,6 +4,26 @@ A small Windows tray app that asks **"Close this window?"** before a Chrome wind
 
 ![Close Guard dialog](D:\Development (Production)\Apps\Chrome Closer Blocker\CloseGuard\img\screenshot.png)
 
+# Close Guard
+
+A small Windows app that asks **"Close this window?"** before a Chrome window is closed with the mouse, so a misclick never loses your tabs.
+
+<!-- Add a screenshot of the dialog here:
+![Close Guard dialog](docs/screenshot.png)
+-->
+
+## Download
+
+### [⬇ Download Close Guard for Windows](https://github.com/AdamBloy/closeguard/releases/latest/download/CloseGuard-Setup.exe)
+
+Windows 10 or 11 (64-bit) · Free · [All versions and release notes](https://github.com/AdamBloy/closeguard/releases)
+
+**How to install:**
+
+1. Click the download link above and run `CloseGuard-Setup.exe`.
+2. If Windows shows **"Windows protected your PC"**, click **More info**, then **Run anyway**. This appears because the app isn't code-signed yet, which is normal for small free tools.
+3. Follow the steps. The Close Guard icon appears in your system tray (click the `^` arrow near the clock if you can't see it).
+
 ## What it does
 
 - Watches for a click on the **X (close) button** of a Chrome window.
